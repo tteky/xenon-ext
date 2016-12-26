@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'maven'
 
 configurations {
     provided
@@ -25,4 +26,24 @@ dependencies {
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: hamcrestVersion
     testCompile group: 'com.github.tomakehurst', name: 'wiremock', version: '2.4.1'
 
+}
+
+
+repositories {
+    maven {
+        url "http://localhost:8081/nexus/content/groups/public"
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+               
+            }
+            pom.version = "0.1-SNAPSHOT"
+            pom.artifactId = "xenon-ext-jaxrs"
+            pom.groupId = "com.github.tteky"
+        }
+    }
 }
