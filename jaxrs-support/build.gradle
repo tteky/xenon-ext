@@ -1,0 +1,28 @@
+apply plugin: 'java'
+
+configurations {
+    provided
+}
+
+dependencies {
+    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: jaxRsVersion
+
+    compile group: 'com.vmware.xenon', name: 'xenon-common', version: xenonVersion
+    compile group: 'com.vmware.xenon', name: 'xenon-common', version: xenonVersion, classifier: 'tests'
+
+    compile group: 'com.vmware.xenon', name: 'xenon-ui', version: xenonVersion
+    compile group: 'com.vmware.xenon', name: 'xenon-swagger', version: xenonVersion
+
+    compile group: 'com.vmware.xenon', name: 'xenon-slf4j', version: xenonVersion
+
+    //JSR303 validations
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: hibernateValidator
+    compile group: 'javax.el', name: 'javax.el-api', version: javaxElVersion
+    compile group: 'org.glassfish.web', name: 'javax.el', version: javaxElVersion
+
+    testCompile group: 'junit', name: 'junit', version: junitVersion
+    testCompile group: 'org.mockito', name: 'mockito-core', version: mockitoVersion
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: hamcrestVersion
+    testCompile group: 'com.github.tomakehurst', name: 'wiremock', version: '2.4.1'
+
+}
