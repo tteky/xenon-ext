@@ -14,7 +14,8 @@ ext {
     //jsr-303
     javaxElVersion = '2.2.4'
     hibernateValidator = '5.2.4.Final'
-
+    //guice version
+    guiceVersion = '4.1.0'
     //test related
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
@@ -22,8 +23,10 @@ ext {
 }
 
 allprojects {
-    group = 'com.tteky.xenon'
+    group = "com.github.tteky"
     apply plugin: 'idea'
+    apply plugin: 'eclipse'
+    apply plugin: 'java'
 
     repositories {
         mavenCentral()

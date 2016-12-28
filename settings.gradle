@@ -1,2 +1,4 @@
 //common for all vrbc projects
 include 'jaxrs-support'
+include 'xenon-fsm'
+
