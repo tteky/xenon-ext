@@ -9,7 +9,6 @@ dependencies {
     compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: jaxRsVersion
 
     compile group: 'com.vmware.xenon', name: 'xenon-common', version: xenonVersion
-    compile group: 'com.vmware.xenon', name: 'xenon-common', version: xenonVersion, classifier: 'tests'
 
     compile group: 'com.vmware.xenon', name: 'xenon-ui', version: xenonVersion
     compile group: 'com.vmware.xenon', name: 'xenon-swagger', version: xenonVersion
@@ -28,12 +27,6 @@ dependencies {
 
 }
 
-
-repositories {
-    maven {
-        url "http://localhost:8081/nexus/content/groups/public"
-    }
-}
 uploadArchives {
     repositories {
         mavenDeployer {
@@ -43,7 +36,8 @@ uploadArchives {
             }
             pom.version = version
             pom.artifactId = "xenon-ext-jaxrs"
-            pom.groupId = "com.github.tteky"
+            pom.groupId = group
         }
     }
 }
+

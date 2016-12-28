@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+configurations {
+    provided
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.vmware.xenon', name: 'xenon-slf4j', version: xenonVersion
+    compile group: 'com.vmware.xenon', name: 'xenon-common', version: xenonVersion
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile project(':jaxrs-support')
+}
+
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+                // ossUser and oSSPassword should be present in .gradle/gradle.properties
+                authentication(userName: ossUser, password: ossPassword)
+            }
+            pom.version = version
+            pom.artifactId = "xenon-ext-fsm"
+            pom.groupId = group
+        }
+    }
+}
+
