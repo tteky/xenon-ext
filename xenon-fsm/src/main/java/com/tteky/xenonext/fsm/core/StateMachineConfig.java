@@ -1,12 +1,13 @@
 package com.tteky.xenonext.fsm.core;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import com.tteky.xenonext.fsm.FSMServiceDoc;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static java.util.Comparator.comparingLong;
 
 /**
  * The state machine configuration
@@ -67,24 +68,47 @@ public class StateMachineConfig {
         return initState;
     }
 
-    public void generateDotFileInto(final OutputStream dotFile) throws IOException {
-        try (OutputStreamWriter w = new OutputStreamWriter(dotFile, "UTF-8")) {
-            PrintWriter writer = new PrintWriter(w);
-            writer.write("digraph G {\n");
-            for (Map.Entry<String, StateRepresentation> entry : this.stateConfiguration.entrySet()) {
-                Map<String, List<TriggerBehaviour>> behaviours = entry.getValue().getTriggerBehaviours();
-                for (Map.Entry<String, List<TriggerBehaviour>> behaviour : behaviours.entrySet()) {
-                    for (TriggerBehaviour triggerBehaviour : behaviour.getValue()) {
-                        if (triggerBehaviour instanceof TriggerBehaviour.TransitioningTriggerBehaviour) {
-                            Map.Entry<Boolean, String> destinationTuple = triggerBehaviour.resultsInTransitionFrom(null, null);
-                            writer.write(String.format("\t%s -> %s;\n", entry.getKey(), destinationTuple.getValue()));
-                        }
+
+    public String generateDotFile() {
+        StringBuilder graph = new StringBuilder("digraph G {\n");
+        for (Map.Entry<String, StateRepresentation> entry : this.stateConfiguration.entrySet()) {
+            Map<String, List<TriggerBehaviour>> behaviours = entry.getValue().getTriggerBehaviours();
+            for (Map.Entry<String, List<TriggerBehaviour>> behaviour : behaviours.entrySet()) {
+                for (TriggerBehaviour triggerBehaviour : behaviour.getValue()) {
+                    if (triggerBehaviour instanceof TriggerBehaviour.TransitioningTriggerBehaviour) {
+                        Map.Entry<Boolean, String> destinationTuple = triggerBehaviour.resultsInTransitionFrom(null, null);
+                        graph.append(String.format("\t%s -> %s [ label = \"%s\" ];\n", entry.getKey(), destinationTuple.getValue(), triggerBehaviour.getTrigger()));
                     }
                 }
             }
-            writer.write("}");
         }
+        return graph.append("}").toString();
     }
+
+    public String generateDotFile(FSMServiceDoc[] docs) {
+        StringBuilder graph = new StringBuilder("digraph G {\n");
+        // force left to right layout
+//        graph.append("\trankdir=LR;\n");
+        graph.append("\tnode [shape = box, \n\tstyle = filled];\n");
+        String src, trigger, dest;
+        Arrays.sort(docs, comparingLong(o -> o.documentVersion));
+        int nxt;
+        for (int cur = 0; cur < docs.length; cur++) {
+            src = docs[cur].state;
+            nxt = cur + 1;
+            trigger = null;
+            dest = null;
+            if (nxt < docs.length) {
+                trigger = docs[nxt].trigger;
+                dest = docs[nxt].state;
+            }
+            if (dest != null) {
+                graph.append(String.format("\t%s -> %s [ label = \"%s\" ];\n", src, dest, trigger));
+            }
+        }
+        return graph.append("}").toString();
+    }
+
 
     /**
      * Builder for creating a finite state machine

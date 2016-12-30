@@ -96,7 +96,7 @@ public abstract class FSMService<D extends FSMServiceDoc> extends StatefulServic
             patch.setStatusCode(HTTP_BAD_REQUEST);
             patch.fail(new IllegalArgumentException(" Patched state " + patchBody.state + " is different from actual state " + src));
         } else {
-            stateMachine.setExpiryScheduler(new ExpiryScheduler(this, patchBody.documentSelfLink, svcDocClass));
+            stateMachine.setExpiryScheduler(new ExpiryScheduler(this, currentState.documentSelfLink, svcDocClass));
             stateMachine.fireTrigger(src, trigger, patch, this::statePopulator);
         }
     }
@@ -145,7 +145,7 @@ public abstract class FSMService<D extends FSMServiceDoc> extends StatefulServic
      *
      * @return fully configured (non-mutable) StateMachineConfig
      */
-    protected abstract StateMachineConfig stateMachineConfig();
+    public abstract StateMachineConfig stateMachineConfig();
 
 
     /**

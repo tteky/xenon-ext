@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.17.0/vis.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h1>FSM Services</h1>
+        <div class="panel panel-primary">
+            <div class="panel-heading">Registered Services</div>
+            <div class="panel-body">
+
+                <p>Select a service to view the configured state machines</p>
+
+                <div class="ui-widget">
+                    <label for="svcSelect">Available Services: </label>
+                    <select id='svcSelect'></select>
+                </div>
+                <br/>
+                <div id="svcView">
+                    <!--fsm graph will be populated here-->
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary" id="svcDocViewPanel" style="visibility: hidden;">
+            <div class="panel-heading">Service Documents</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <ul class="list-group" id="svcDocId">
+
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+						<div id="svcDocGraphView">
+							<!--fsm graph will be populated here-->
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /.container -->
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="js/viz.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

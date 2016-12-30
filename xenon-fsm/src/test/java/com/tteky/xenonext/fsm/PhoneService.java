@@ -48,7 +48,7 @@ public class PhoneService extends FSMService<PhoneService.PhoneSvcDoc> {
     }
 
 
-    protected StateMachineConfig stateMachineConfig() {
+    public StateMachineConfig stateMachineConfig() {
 
         StateMachineConfig.Builder phoneCallConfig = StateMachineConfig.newBuilder(PhoneState.OffHook.name());
 
@@ -92,6 +92,7 @@ public class PhoneService extends FSMService<PhoneService.PhoneSvcDoc> {
                     setState(transition.getCause(), state);
                     log.info("on Exit of Connected");
                 })
+                .onExit(this::completeOperation)
                 .onExpiry(PhoneTrigger.HungUp.name(), 30000)
                 .permit(PhoneTrigger.LeftMessage.name(), PhoneState.OffHook.name())
                 .permit(PhoneTrigger.HungUp.name(), PhoneState.OffHook.name())
