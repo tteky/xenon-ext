@@ -20,4 +20,89 @@ Currently supported annotations in client side are
 4. Custom annotation @Operation to receive operation as a parameter
 4. Custom annotation @OperationBody to receive body as a payload
 
+### Server Side usage
 
+First step is declare your *service contract* like below (This is completely optional )
+```java
+@Path(SELF_LINK)
+public interface SampleService {
+
+    String SELF_LINK = "/xenon-ext/sample";
+
+    /**
+    * Example of asynchronous service
+    * Employee response will be send only when the CompletableFuture is complete and hence provides async capability in server side
+    */
+    @Path("/category/{id}")
+    @GET
+    CompletableFuture<Employee> fetchSample(@PathParam("id") String id, @QueryParam("tags") String tag);
+
+    /**
+    * Example of a POST operation. 
+    * Employee POJO can have javax validation annotations and it will be validated before the method is invoked
+    */
+    @POST
+    CompletableFuture<Employee> newEmployee(@OperaionBody Employee employee);
+}
+```
+
+Second step is to Implement the service by extending JaxRsBridgeStatelessService. * Note the use of StatefulServiceContract*
+```java
+public class SampleServiceImpl extends JaxRsBridgeStatelessService implements SampleService {
+    
+    private StatefulServiceContract<Employee> employeeSvc;
+    
+     public SampleServiceImpl() {
+          setContractInterface(SampleService.class); // this is required only if you implement interface containing JAX RS annotations
+     }
+     
+      @Override
+      public OperationProcessingChain getOperationProcessingChain() {
+             if (employeeSvc == null) {
+                 querySvc = ServiceClientUtil.newStatefulSvcContract(getHost(), 
+                    EmployeeService.FACTORY_LINK, Employee.class);
+             }
+             return super.getOperationProcessingChain();
+      }
+    
+    public CompletableFuture<Employee> fetchSample(@PathParam("id") String id, @QueryParam("tags") String tag) {
+         // do implementation
+         // do things asyncly
+         return null;
+    }
+    //other methods
+    
+    // Can define additional methods other than implementing interface too
+    @PUT
+    @Path("/{id}")
+    CompletableFuture<Employee> updateEmployee(@PathParam("id") String id,@OperaionBody Employee employee) {
+         // delegate to a statefule service
+         return employeeSvc.put(id,employee);
+    }
+}
+```
+
+### Client Side usage
+When you want to use the proxy client builder, you need an interface with JAX-RS annotations like the one declared above.
+1. Example usage with in Xenon host, when the sample service is running in same host
+```java
+       SampleService sampleService = JaxRsServiceClient.newBuilder()
+                 .withHost(host)
+                 .withResourceInterface(FullSampleService.class)
+                 .build();
+```
+2. Example usage with in Xenon host, when the sample service is hosted externally
+```java
+       SampleService sampleService = JaxRsServiceClient.newBuilder()
+                 .withHost(host)
+                 .withBaseUri('http://someServiceHost:8000')
+                 .withResourceInterface(FullSampleService.class)
+                 .build();
+```
+3. Example usage outside Xenon host
+```java
+       SampleService sampleService = JaxRsServiceClient.newBuilder()
+                 .withBaseUri('http://someServiceHost:8000')
+                 .withResourceInterface(FullSampleService.class)
+                 .build();
+```

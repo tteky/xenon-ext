@@ -4,9 +4,7 @@ import com.vmware.xenon.common.Operation;
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
- * Created by kseshadri
- * <p>
- * The interceptors are invoked sequentially & synchronously
+ * The interceptors are invoked sequentially and synchronously
  */
 public class InterceptorChain implements OperationInterceptor {
 

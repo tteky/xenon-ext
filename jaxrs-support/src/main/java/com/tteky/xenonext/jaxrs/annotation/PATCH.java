@@ -5,8 +5,6 @@ import javax.ws.rs.NameBinding;
 import java.lang.annotation.*;
 
 /**
- * Created by mageshwaranr
- * <p>
  * Annotation to represent HTTP Method PATCH
  */
 @Target({ElementType.METHOD})

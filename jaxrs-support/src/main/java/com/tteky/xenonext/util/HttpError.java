@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by mages_000 on 26-Dec-16.
+ * Exception class to wrap any HTTP based errors
  */
 public class HttpError extends RuntimeException {
 

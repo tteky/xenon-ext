@@ -9,7 +9,8 @@ import java.util.concurrent.CompletableFuture;
 import static com.tteky.xenonext.client.ServiceClientUtil.selfLinkToId;
 
 /**
- * Created by mages_000 on 26-Dec-16.
+ * Contract applicable for all stateful services.
+ * Note that, not all services implement all types of HTTP operation.
  */
 public interface StatefulServiceContract<T> {
 
@@ -28,6 +29,11 @@ public interface StatefulServiceContract<T> {
     @Path("{id}")
     CompletableFuture<T> patch(@PathParam("id") String id, @OperationBody T patchBody);
 
+    /**
+     * @param docLink the document self link
+     * @param patchBody Partial body of the service document which the actual service expects
+     * @return updated service doc
+     */
     default CompletableFuture<T> patchBySelfLink(String docLink, T patchBody) {
         return patch(selfLinkToId(docLink), patchBody);
     }
@@ -36,6 +42,11 @@ public interface StatefulServiceContract<T> {
     @Path("{id}")
     CompletableFuture<T> put(@PathParam("id") String id, @OperationBody T putBody);
 
+    /**
+     * @param docLink the document self link
+     * @param patchBody Complete body of the service document which the actual service expects
+     * @return updated service doc
+     */
     default CompletableFuture<T> putBySelfLink(String docLink, T patchBody) {
         return put(selfLinkToId(docLink), patchBody);
     }

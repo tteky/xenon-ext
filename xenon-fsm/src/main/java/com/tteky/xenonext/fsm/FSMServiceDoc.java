@@ -6,8 +6,6 @@ import com.vmware.xenon.common.ServiceDocumentDescription;
 import java.util.Map;
 
 /**
- * Created by mageshwaranr on 01-Dec-16.
- * <p>
  * Sub-classes can add additional arguments as needed. Sub-class of FSMService shouldn't directly
  * manipulate the fields defined in this class
  */

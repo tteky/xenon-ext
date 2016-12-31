@@ -1,7 +1,7 @@
 package com.tteky.xenonext.jaxrs.reflect;
 
 /**
- * Created by mageshwaranr
+ * POJO to hold info about method params
  */
 public class ParamMetadata implements Comparable<ParamMetadata> {
 

@@ -19,7 +19,7 @@ import static com.vmware.xenon.common.ServiceDocument.FIELD_NAME_SELF_LINK;
 import static java.util.Collections.singletonMap;
 
 /**
- * Created by mages_000 on 29-Dec-16.
+ * Implementation of stats service
  */
 public class FSMStatsServiceImpl extends JaxRsBridgeStatelessService implements FSMStatsService {
 

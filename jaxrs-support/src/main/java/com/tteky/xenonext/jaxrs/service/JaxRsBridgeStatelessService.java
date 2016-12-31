@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by mageshwaranr on 9/16/2016.
+ * Base class for stateless service which wants to use JAX-RS annotation based method invocation
  */
 public class JaxRsBridgeStatelessService extends StatelessService {
 

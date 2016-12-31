@@ -6,10 +6,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by mageshwaranr.
- * <p>
  * Annotation to represent that a particular method argument / parameter can be populated using
- * Operation.getBody() content. Note that, jsr-303 constraint validation will be applied if used.
+ * Operation.getBody() content. Note that, jsr-303 constraint validation will be applied on the body if used on the POJO.
  */
 @Target({ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)

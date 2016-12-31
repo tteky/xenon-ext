@@ -25,7 +25,9 @@ import static com.vmware.xenon.common.UriUtils.extendUri;
 import static com.vmware.xenon.common.UriUtils.extendUriWithQuery;
 
 /**
- * Created by mageshwaranr
+ * Handles the method invocation on contract interfaces.
+ * Capable of handling only methods annotated with JAX-RS annotations.
+ * Convert jax-rs method invocation to operation and post back results
  */
 public class ProxyHandler implements InvocationHandler {
 

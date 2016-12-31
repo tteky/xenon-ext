@@ -10,7 +10,7 @@ import java.util.concurrent.CompletableFuture;
 
 
 /**
- * Created by mages_000 on 29-Dec-16.
+ * Contract for Xenon core query tasks and odata query
  */
 @Path("/core")
 public interface QueryContract {
@@ -30,6 +30,13 @@ public interface QueryContract {
     @POST
     CompletableFuture<QueryTask> query(@OperationBody QueryTask filterCriteria);
 
+    /**
+     * TO be used only with queries returning homogeneous results of a single type
+     * @param filterCriteria the actual criteria
+     * @param clazz the return type, usually it will be an array type
+     * @param <T>
+     * @return
+     */
     default <T> CompletableFuture<T> typedODataQuery(String filterCriteria, Class<T> clazz) {
         return oDataQuery(filterCriteria)
                 .thenApply(task -> {
@@ -38,9 +45,15 @@ public interface QueryContract {
                 });
     }
 
+    /**
+     * To be used only with direct task queries returning homogeneous results of a single type
+     * @param filterCriteria the actual criteria
+     * @param clazz the return type, usually it will be an array type
+     * @param <T>
+     * @return
+     */
     default <T> CompletableFuture<T> typedQuery(QueryTask filterCriteria, Class<T> clazz) {
         return query(filterCriteria)
-//                .thenCompose( task -> getQueryResults(selfLinkToId(task.documentSelfLink)))
                 .thenApply(task -> {
                     Map<String, Object> documents = task.results.documents;
                     return Utils.fromJson(documents.values(), clazz);

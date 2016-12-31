@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by mageshwaranr
- * <p>
  * Method info corresponding to a JaxRs Annotated HTTP method
  */
 public class MethodInfo {

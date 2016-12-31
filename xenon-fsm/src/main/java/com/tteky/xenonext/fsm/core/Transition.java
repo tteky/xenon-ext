@@ -2,6 +2,9 @@ package com.tteky.xenonext.fsm.core;
 
 import com.vmware.xenon.common.Operation;
 
+/**
+ * POJO encapsulating the transition with context
+ */
 public class Transition {
 
     private final String source;

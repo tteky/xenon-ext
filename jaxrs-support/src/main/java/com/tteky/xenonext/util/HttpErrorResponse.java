@@ -9,7 +9,7 @@ import java.util.Objects;
 import static com.vmware.xenon.common.Utils.buildKind;
 
 /**
- * Created by mages_000 on 26-Dec-16.
+ * Response body class of HttpError
  */
 public class HttpErrorResponse extends ServiceErrorResponse {
 

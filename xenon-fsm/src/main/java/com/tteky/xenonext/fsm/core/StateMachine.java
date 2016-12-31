@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 import static java.lang.String.format;
 
 /**
- * Created by mageshwaranr on 11-Dec-16.
+ * Mutable door to immutable StateMachineConfig
  */
 public class StateMachine {
 

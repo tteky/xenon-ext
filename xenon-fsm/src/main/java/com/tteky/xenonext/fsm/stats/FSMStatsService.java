@@ -10,7 +10,7 @@ import java.util.concurrent.CompletableFuture;
 import static com.tteky.xenonext.fsm.stats.FSMStatsService.SELF_LINK;
 
 /**
- * Created by mages_000 on 29-Dec-16.
+ * Stats service
  */
 @Path(SELF_LINK)
 public interface FSMStatsService {

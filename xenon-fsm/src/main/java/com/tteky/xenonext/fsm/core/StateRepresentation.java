@@ -8,6 +8,9 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+/**
+ * Holds all the configuration pertaining to a single state, for internal use only
+ */
 public class StateRepresentation {
 
     private final String state;

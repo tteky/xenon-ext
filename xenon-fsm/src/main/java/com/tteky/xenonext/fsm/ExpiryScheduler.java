@@ -13,7 +13,7 @@ import java.util.function.BiConsumer;
 import static com.vmware.xenon.common.UriUtils.extendUri;
 
 /**
- * Created by mages_000 on 27-Dec-16.
+ * Schedules the expiry of an state using ServiceHost scheduler
  */
 public class ExpiryScheduler implements BiConsumer<Map<String, Long>, Transition> {
 

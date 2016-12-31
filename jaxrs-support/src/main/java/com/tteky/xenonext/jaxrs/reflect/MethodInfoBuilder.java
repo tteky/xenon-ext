@@ -21,8 +21,6 @@ import static java.lang.reflect.Modifier.isPublic;
 import static java.util.stream.Collectors.toList;
 
 /**
- * Created by mageshwaranr
- * <p>
  * Parses and creates MethodInfo of public declared method given a JaxRs annotated interfaces
  */
 public class MethodInfoBuilder {

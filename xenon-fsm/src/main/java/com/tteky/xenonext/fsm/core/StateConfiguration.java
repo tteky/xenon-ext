@@ -4,7 +4,9 @@ package com.tteky.xenonext.fsm.core;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-
+/**
+ * Configuration pertaining to single node/state in FSM
+ */
 public class StateConfiguration {
 
     private final Predicate<String> NO_GUARD = t -> true;

@@ -37,22 +37,12 @@ public class ODataQueryTest extends BasicReusableHostTestCase {
     @Test
     public void testODataQueryExecution() throws Throwable {
         setupData();
-        testODataQuery();
         testODataQueryContract();
         testTaskQueryContract();
     }
 
-    private void testODataQuery() throws InterruptedException, java.util.concurrent.ExecutionException {
-        CompletableFuture<ExampleServiceState[]> execute = ODataQuery.newInstance()
-                .withHost(host)
-                .withFilterCriteria("name " + ODataQuery.EQ + " Diya")
-                .execute(ExampleServiceState[].class);
-        ExampleServiceState[] states = execute.get();
-        verifyMatch(states);
-    }
-
     private void testODataQueryContract() throws Throwable {
-        ExampleServiceState[] states = querySvc.typedODataQuery("name " + ODataQuery.EQ + " Diya", ExampleServiceState[].class).get();
+        ExampleServiceState[] states = querySvc.typedODataQuery("name " + QueryContract.EQ + " Diya", ExampleServiceState[].class).get();
         verifyMatch(states);
     }
 

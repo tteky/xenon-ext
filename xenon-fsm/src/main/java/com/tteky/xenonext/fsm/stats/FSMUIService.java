@@ -3,7 +3,7 @@ package com.tteky.xenonext.fsm.stats;
 import com.vmware.xenon.ui.UiService;
 
 /**
- * Created by mages_000 on 29-Dec-16.
+ * UI host FSM webpages
  */
 public class FSMUIService extends UiService {
     public static final String SELF_LINK = "/fsm/gui";
