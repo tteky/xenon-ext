@@ -12,4 +12,15 @@ Inspired by Jersey and Resteasy proxy client framework, this module provides JAX
 #### Server Side
 Provides JAX-RS annotation processing capability for a stateless service. Honors JAX-RS Annotation on a best effort basis 
 
+More details [here] (https://github.com/tteky/xenon-ext/tree/master/jaxrs-support)
+
 ## State machine for Xenon
+
+Create state machine based workflows directly in java code. Its inspired from stateless & Xenon task service
+
+#### Features
+Provides ability to 
+1. Attach on-entry & on-exit handlers on each state
+2. Attach expiry based auto-transition
+3. Basic UI to visualize the state machine diagram
+

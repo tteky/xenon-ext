@@ -81,17 +81,19 @@ public class SampleServiceImpl extends JaxRsBridgeStatelessService implements Sa
     }
 }
 ```
+Now you have a fully functional REST service using Xenon
 
 ### Client Side usage
 When you want to use the proxy client builder, you need an interface with JAX-RS annotations like the one declared above.
-1. Example usage with in Xenon host, when the sample service is running in same host
+
+Example usage with in Xenon host, when the sample service is running in same host
 ```java
        SampleService sampleService = JaxRsServiceClient.newBuilder()
                  .withHost(host)
                  .withResourceInterface(FullSampleService.class)
                  .build();
 ```
-2. Example usage with in Xenon host, when the sample service is hosted externally
+Example usage with in Xenon host, when the sample service is hosted externally
 ```java
        SampleService sampleService = JaxRsServiceClient.newBuilder()
                  .withHost(host)
@@ -99,7 +101,7 @@ When you want to use the proxy client builder, you need an interface with JAX-RS
                  .withResourceInterface(FullSampleService.class)
                  .build();
 ```
-3. Example usage outside Xenon host
+Example usage outside Xenon host
 ```java
        SampleService sampleService = JaxRsServiceClient.newBuilder()
                  .withBaseUri('http://someServiceHost:8000')
