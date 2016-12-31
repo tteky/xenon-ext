@@ -9,18 +9,20 @@ The state machine moves from one state to another when a patch request is issued
 
 #### Features
 Provides ability to 
-1. Attach on-entry & on-exit handlers on each state
-2. Attach expiry based auto-transition
-3. Basic UI to visualize the state machine diagram
+
+- Attach on-entry & on-exit handlers on each state
+- Attach expiry based auto-transition
+- Basic UI to visualize the state machine diagram
 
 #### Usage
 Assumes basic knowledge about Xenon stateful service
-1. Service should extend FSMService service
-2. Can define its own service document, but should extend FSMServiceDoc
-3. Implement stateMachineConfig() method to define the state machine
-4. Add validation of initial payload by overriding validateStartPost method, if needed
-5. Add initial auto-transition that should happen when a new document is created by overriding initialTrigger method, if requried
-6. In order to use the UI, you have to start two more services FSMStatsServiceImpl and FSMUIService and register your FSM service with FSMStatsServiceImpl 
+
+- Service should extend FSMService service
+- Can define its own service document, but should extend FSMServiceDoc
+- Implement stateMachineConfig() method to define the state machine
+- Add validation of initial payload by overriding validateStartPost method, if needed
+- Add initial auto-transition that should happen when a new document is created by overriding initialTrigger method, if requried
+- In order to use the UI, you have to start two more services FSMStatsServiceImpl and FSMUIService and register your FSM service with FSMStatsServiceImpl 
 
 **Note**: The state machine config is not persisted. Only the current state and trigger is persisted.
 
