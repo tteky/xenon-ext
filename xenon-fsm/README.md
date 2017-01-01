@@ -26,6 +26,9 @@ Assumes basic knowledge about Xenon stateful service
 
 **Note**: The state machine config is not persisted. Only the current state and trigger is persisted.
 
+Start FSM Utility service by invoking method FSMServices.startUtilityService(host) with the current host.
+ FSM UI can be found at http://localhost:8000/fsm/gui
+
 Example :
 
 ```java
@@ -92,3 +95,8 @@ public class SampleService extends FSMService<ChildOfFSMServiceDoc> {
 }
 ```
 
+The basic UI will look like following.
+
+[[https://github.com/tteky/xenon-ext/blob/master/xenon-fsm/src/docs/FSMServiceGUi.png|alt=octocat]]
+**Note**: For UI to show data, at least a single instance needs to be created after server start up. 
+Alternatively, at start up Service can be manually registered

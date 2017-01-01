@@ -3,7 +3,7 @@ package com.tteky.xenonext.fsm.stats;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -18,7 +18,11 @@ public interface FSMStatsService {
 
     @Path("/list")
     @GET
-    List<String> allServices();
+    Collection<String> allServices();
+
+    @Path("/register")
+    @GET
+    Collection<String> registerSvc(@QueryParam("uri") String uri, @QueryParam("className") String className);
 
     @Path("/svc/graphson")
     @GET

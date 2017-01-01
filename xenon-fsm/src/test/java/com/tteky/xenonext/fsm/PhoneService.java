@@ -19,8 +19,6 @@ public class PhoneService extends FSMService<PhoneService.PhoneSvcDoc> {
 
     public PhoneService() {
         super(PhoneSvcDoc.class);
-        super.toggleOption(ServiceOption.INSTRUMENTATION, true);
-        super.toggleOption(ServiceOption.PERSISTENCE, true);
     }
 
     public enum PhoneState {

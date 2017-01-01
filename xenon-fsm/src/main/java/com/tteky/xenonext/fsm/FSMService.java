@@ -3,6 +3,8 @@ package com.tteky.xenonext.fsm;
 import com.tteky.xenonext.fsm.core.StateMachine;
 import com.tteky.xenonext.fsm.core.StateMachineConfig;
 import com.tteky.xenonext.fsm.core.Transition;
+import com.tteky.xenonext.fsm.stats.FSMStatsService;
+import com.tteky.xenonext.jaxrs.client.JaxRsServiceClient;
 import com.vmware.xenon.common.Operation;
 import com.vmware.xenon.common.StatefulService;
 import org.slf4j.Logger;
@@ -27,6 +29,7 @@ public abstract class FSMService<D extends FSMServiceDoc> extends StatefulServic
     private Logger log = LoggerFactory.getLogger(getClass());
     private Class<D> svcDocClass;
     private StateMachine stateMachine;
+    private boolean doRegistration = true;
 
     protected FSMService(Class<D> svcDocClass) {
         super(svcDocClass);
@@ -38,6 +41,23 @@ public abstract class FSMService<D extends FSMServiceDoc> extends StatefulServic
         super.toggleOption(ServiceOption.INSTRUMENTATION, true);
         super.toggleOption(ServiceOption.PERIODIC_MAINTENANCE, true);
 
+    }
+
+
+    @Override
+    public void handleCreate(Operation post) {
+        super.handleCreate(post);
+        if (doRegistration) {
+            FSMStatsService statsService = JaxRsServiceClient.newBuilder()
+                    .withHost(getHost())
+                    .withResourceInterface(FSMStatsService.class)
+                    .build();
+            doRegistration = false;
+            String svcUri = getSelfLink().replaceAll("/" + getSelfId(), "");
+            String className = getClass().getName();
+            log.info("Registering {} URI to {}", svcUri, className);
+            statsService.registerSvc(svcUri, className);
+        }
     }
 
     /**

@@ -1,7 +1,5 @@
 package com.tteky.xenonext.fsm;
 
-import com.tteky.xenonext.fsm.stats.FSMStatsServiceImpl;
-import com.tteky.xenonext.fsm.stats.FSMUIService;
 import com.vmware.xenon.services.common.ExampleServiceHost;
 import com.vmware.xenon.services.common.RootNamespaceService;
 import com.vmware.xenon.swagger.SwaggerDescriptorService;
@@ -26,9 +24,6 @@ public class FSMHost {
         swagger.setInfo(apiInfo);
         host.startService(swagger);
         host.startFactory(new PhoneService());
-        FSMStatsServiceImpl service = new FSMStatsServiceImpl();
-        service.registerSvc(PhoneService.FACTORY_LINK, PhoneService.class);
-        host.startService(service);
-        host.startService(new FSMUIService());
+        FSMServices.startUtilityService(host);
     }
 }

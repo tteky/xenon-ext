@@ -6,13 +6,11 @@ import com.tteky.xenonext.fsm.FSMServiceDoc;
 import com.tteky.xenonext.fsm.core.StateMachineConfig;
 import com.tteky.xenonext.jaxrs.client.JaxRsServiceClient;
 import com.tteky.xenonext.jaxrs.service.JaxRsBridgeStatelessService;
+import com.tteky.xenonext.util.HttpError;
 import com.vmware.xenon.common.OperationProcessingChain;
 import com.vmware.xenon.services.common.QueryTask;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 import static com.vmware.xenon.common.ServiceDocument.FIELD_NAME_SELF_LINK;
@@ -31,8 +29,8 @@ public class FSMStatsServiceImpl extends JaxRsBridgeStatelessService implements 
         setContractInterface(FSMStatsService.class);
     }
 
-    public void registerSvc(String uri, Class<? extends FSMService> svcClass) throws Throwable{
-        this.fsmSvcs.put(uri,svcClass.newInstance().stateMachineConfig());
+    public void registerSvc(String uri, Class<? extends FSMService> svcClass) throws Exception {
+        this.fsmSvcs.put(uri, svcClass.newInstance().stateMachineConfig());
     }
 
     @Override
@@ -44,6 +42,19 @@ public class FSMStatsServiceImpl extends JaxRsBridgeStatelessService implements 
                     .build();
         }
         return super.getOperationProcessingChain();
+    }
+
+    @Override
+    public Collection<String> registerSvc(String uri, String className) {
+        try {
+            Class<? extends FSMService> aClass = Class.forName(className).asSubclass(FSMService.class);
+            if (!aClass.isInterface()) {
+                registerSvc(uri, aClass);
+            }
+        } catch (Exception e) {
+            throw new HttpError("Unable to find a class named " + className, e);
+        }
+        return new ArrayList<>(fsmSvcs.keySet());
     }
 
     @Override
