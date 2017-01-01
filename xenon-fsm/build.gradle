@@ -1,5 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'signing'
 
 configurations {
     provided
@@ -33,20 +34,41 @@ artifacts {
     archives javadocJar
 }
 
-
-
+signing {
+    sign configurations.archives
+}
 
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
-                // ossUser and oSSPassword should be present in .gradle/gradle.properties
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
                 authentication(userName: ossUser, password: ossPassword)
             }
-            pom.version = version
-            pom.artifactId = "xenon-ext-fsm"
-            pom.groupId = 'com.github.tteky'
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossUser, password: ossPassword)
+            }
+
+            pom.project {
+                name 'Xenon Extension : State machine for Xenon'
+                packaging 'jar'
+
+                description 'State machine using Xenon Stateful service'
+                url 'https://github.com/tteky/xenon-ext'
+
+                pom.version = version
+                pom.artifactId = "xenon-fsm"
+                pom.groupId = 'com.github.tteky'
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
         }
     }
 }
-
