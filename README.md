@@ -20,8 +20,11 @@ Create state machine based workflows directly in java code. Its inspired from st
 
 #### Features
 Provides ability to 
+
 1. Attach on-entry & on-exit handlers on each state
 2. Attach expiry based auto-transition
 3. Basic UI to visualize the state machine diagram
 
 More details [here] (https://github.com/tteky/xenon-ext/tree/master/xenon-fsm)
+
+This extension can be associated to Xenon (rapid micro-service building framework), state machine, stateless4j etc.,
