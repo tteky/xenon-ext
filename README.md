@@ -24,3 +24,4 @@ Provides ability to
 2. Attach expiry based auto-transition
 3. Basic UI to visualize the state machine diagram
 
+More details [here] (https://github.com/tteky/xenon-ext/tree/master/xenon-fsm)

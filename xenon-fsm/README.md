@@ -97,6 +97,7 @@ public class SampleService extends FSMService<ChildOfFSMServiceDoc> {
 
 The basic UI will look like following.
 
-[[https://github.com/tteky/xenon-ext/blob/master/xenon-fsm/src/docs/FSMServiceGUi.png|alt=octocat]]
+[https://github.com/tteky/xenon-ext/blob/master/xenon-fsm/src/docs/FSMServiceGUi.png]
+
 **Note**: For UI to show data, at least a single instance needs to be created after server start up. 
 Alternatively, at start up Service can be manually registered
