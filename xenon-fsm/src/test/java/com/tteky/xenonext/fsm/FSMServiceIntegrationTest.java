@@ -1,6 +1,7 @@
 package com.tteky.xenonext.fsm;
 
 import com.tteky.xenonext.client.StatefulServiceContract;
+import com.tteky.xenonext.fsm.stats.FSMStatsService;
 import com.vmware.xenon.common.BasicReusableHostTestCase;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -28,9 +29,10 @@ public class FSMServiceIntegrationTest extends BasicReusableHostTestCase {
     @Before
     public void init() throws Throwable {
         if (testSvc == null) {
+            FSMServices.startUtilityService(host);
             testSvc = newStatefulSvcContract(host, FACTORY_LINK, PhoneSvcDoc.class);
             host.startFactory(new PhoneService());
-            host.waitForServiceAvailable();
+            host.waitForServiceAvailable(FACTORY_LINK, FSMStatsService.SELF_LINK);
         }
     }
 

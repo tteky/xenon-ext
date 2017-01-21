@@ -130,7 +130,11 @@ public abstract class FSMService<D extends FSMServiceDoc> extends StatefulServic
         FSMServiceDoc curState = getState(transition.getCause());
         curState.trigger = transition.getTrigger();
         curState.state = transition.getDestination();
+        D body = transition.getCause().getBody(svcDocClass);
+        body.trigger = transition.getTrigger();
+        body.state = transition.getDestination();
         setState(transition.getCause(), curState);
+        transition.getCause().setBody(body);
     }
 
 

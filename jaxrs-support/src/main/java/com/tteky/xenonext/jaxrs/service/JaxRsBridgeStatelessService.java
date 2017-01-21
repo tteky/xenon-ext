@@ -1,5 +1,6 @@
 package com.tteky.xenonext.jaxrs.service;
 
+import com.tteky.xenonext.jaxrs.client.JaxRsServiceClient;
 import com.vmware.xenon.common.OperationProcessingChain;
 import com.vmware.xenon.common.RequestRouter;
 import com.vmware.xenon.common.StatelessService;
@@ -28,6 +29,7 @@ public class JaxRsBridgeStatelessService extends StatelessService {
         RequestRouter requestRouter = RequestRouterBuilder.parseJaxRsAnnotations(this, contractInterface);
         opProcessingChain.add(requestRouter);
         setOperationProcessingChain(opProcessingChain);
+        initializeInstance();
         return opProcessingChain;
     }
 
@@ -38,6 +40,14 @@ public class JaxRsBridgeStatelessService extends StatelessService {
      */
     protected void setContractInterface(Class<?> iFace) {
         this.contractInterface = iFace;
+    }
+
+    protected void initializeInstance() {
+    }
+
+    protected <T> T newLocalhostContract(Class<T> clazz) {
+        return JaxRsServiceClient.newBuilder().withHost(getHost())
+                .withResourceInterface(clazz).build();
     }
 
 
